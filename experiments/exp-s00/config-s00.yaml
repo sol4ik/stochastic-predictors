@@ -1,0 +1,43 @@
+model: [
+  {'type':, 'channels': 1},  # 28 x 28 x 1
+  {'type': 'conv2d', 'channels': 6, 'kernel_size': 3},  # 26 x 26 x 6
+  {'type': 'step_ste'},
+  {'type': 'conv2d', 'channels': 12, 'kernel_size': 3},  # 24 x 24 x 12
+  {'type': 'step_ste'},
+  {'type': 'conv2d', 'channels': 12, 'kernel_size': 2, 'stride': 2},  # "weighted pooling" - 12 x 12 x 12
+
+  {'type': 'conv2d', 'channels': 24, 'kernel_size': 3},  # 10 x 10 x 24
+  {'type': 'step_ste'},
+  {'type': 'conv2d', 'channels': 48, 'kernel_size': 3},  # 8 x 8 x 48
+  {'type': 'step_ste'},
+  {'type': 'conv2d', 'channels': 48, 'kernel_size': 2, 'stride': 2},  # 4 x 4 x 48
+
+  {'type': 'conv2d', 'channels': 96, 'kernel_size': 3},  # 2 x 2 x 96
+  {'type': 'step_ste'},
+  {'type': 'conv2d', 'channels': 96, 'kernel_size': 2, 'stride': 2},  # 1 x 1 x 96
+
+  {'type': 'conv2d', 'channels': 50, 'kernel_size': 1}, # 1 x 1 x 50
+  {'type': 'step_ste'},
+  {'type': 'conv2d', 'channels': 10, 'kernel_size': 1}, # 1 x 1 x 50
+  {'type': 'step_ste'},
+  {'type': 'flatten'},
+]
+batch_norm:          False
+n_for_features:      13
+
+noise:               logistic
+mean:                0
+std:                 1
+
+objective:           nll
+metric:              accuracy
+learning_rate:       1.e-4
+batch_size:          64
+n_epochs:            50
+
+normalize_params:    0.5, 0.5
+
+basename:            STE-
+call_suffix:         '00'
+
+res_path:            /home/solia/Documents/stochastic_predictors/experiments/exp-s00
